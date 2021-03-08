@@ -1,0 +1,101 @@
+body
+{
+    background-color: white !important;
+}
+.card
+{background-color: #555555}
+h5
+{
+    font-family: Montserrat;
+    text-transform: uppercase;
+    font-weight: unset;
+}
+h1{
+    text-transform: uppercase;
+    color: #000000;
+}
+.nav-link
+{
+    text-transform: uppercase;
+}
+#filmbox{
+    border-radius:10%;
+    text-decoration:none;
+    color: #ffffff;
+    min-width: 400px;
+    min-height: 400px;
+    max-width: 400px;
+    margin-left: 60px;
+    margin-top: 40px;
+    padding:20px;
+    text-align: center;
+    animation: tournade 1s;
+}
+.form-control
+{
+    opacity: 20%;
+}
+.form-control:hover
+{
+    opacity: 100%;
+    transition: 0.3s;
+}
+#navbar
+{
+    animation: accueil 1s;
+}
+@keyframes tournade {
+    0%{
+        opacity: 0%;
+        transform: rotate(250deg);
+
+    }
+    75%{
+        opacity: 20%;
+    }
+    100% {
+        transform: rotate(360deg);
+        opacity: 100%;
+    }
+}@keyframes accueil {
+     0%{
+         top: -111px;
+         opacity: 0%;
+     }
+     75%{
+         opacity: 50%;
+     }
+     100% {
+         top: 0px;
+     }
+ }
+
+
+.ajout_avis{
+    display: none;
+    overflow: hidden;
+    opacity: 0%;
+}
+.ajout_avis.is-visible{
+    display: block;
+    opacity: 100%;
+    animation: display 1.5s;
+}
+
+@keyframes display {
+    0%{
+        opacity: 0%;
+    }
+    50%{
+        opacity: 50%;
+    }
+    100%{
+        opacity: 100%;
+    }
+}
+
+.pagination{justify-content: center;}
+
+#tags{
+    text-decoration:none;
+}

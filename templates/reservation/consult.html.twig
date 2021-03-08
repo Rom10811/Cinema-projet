@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes reservations{% endblock %}
+
+{% block body %}
+    <body>
+    <div>
+        <table class="table table-striped table-dark" style="text-align: center">
+        <thead>
+        <tr>
+            <th colspan="10" style="text-align: center">
+                <h1>Mes reservations</h1>
+            </th>
+        </tr>
+            <tr>
+                <th>Nom</th>
+                <th>Nombres de places réservés</th>
+                <th>Numero salle</th>
+                <th>Date de la séance</th>
+                <th>Email</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Horaire de la reservation</th>
+                <th>Actions sur la reservation</th>
+                <th>Statut de la reservation</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reservation in reservations %}
+            {% if "now"|date('U') <= reservation.idFilm.heure|date('U')  %}
+                <tr>
+                    <td>{{ reservation.idFilm.idFilm.Nom }}</td>
+                    <td>{{ reservation.NbrPlaces }}</td>
+                    <td> {{ reservation.idFilm.idSalle.Numero }}</td>
+                    <td> {{ reservation.idFilm.heure|format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY à HH:mm:ss")  }}</td>
+                    <td>{{ reservation.idUser.email }}</td>
+                    <td>{{ reservation.idUser.nom }}</td>
+                    <td>{{ reservation.idUser.prenom }}</td>
+                    <td>{{ reservation.DateCreation|format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY à HH:mm:ss")  }}</td>
+                    <td>
+                        {% if reservation.Etat == 2 %}
+
+                        {% else %}
+                            <a class="btn btn-danger btn-sm" href="{{ path('reservation_cancel', {'idreservation': reservation.id, 'idseance': reservation.idFilm.id, 'nbr': reservation.NbrPlaces}) }}">Annuler</a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if reservation.Etat == 0 %}
+                            <span class="badge badge-pill badge-success">Reservé</span>
+                            <a title="Imprimer votre billet en ligne" href="{{ path('reservation_export', {'idreservation': reservation.id}) }}"><img style="width: 30px; margin-left: 20px" src="{{ asset('images/print-solid.svg') }}" alt="Imprimer vottre billet"></a>
+                        {% elseif reservation.Etat == 1 %}
+                            <span class="badge badge-pill badge-warning">En cours de validation</span>
+                        {% else %}
+                            <span class="badge badge-pill badge-danger">Annulé</span>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% else %}
+
+            {% endif %}
+        {% endfor %}
+        </tbody>
+        </table>
+    </div>
+    </body>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <table class="table table-striped table-dark" style="text-align: center">
+        <thead>
+        <tr>
+            <th colspan="11"><h1>Reservations actives</h1></th>
+        </tr>
+        <tr>
+            <th>Id reservation</th>
+            <th>Id seance</th>
+            <th>Nom</th>
+            <th>Nombres de places réservés</th>
+            <th>Numero salle</th>
+            <th>Date de la séance</th>
+            <th>Email</th>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>Actions sur la reservation</th>
+            <th>Statut de la reservation</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for reservation in reservations %}
+            {% if "now"|date('U') > reservation.idFilm.heure|date('U') or reservation.Etat == 2%}
+
+            {% else %}
+                <tr>
+                    <td>{{ reservation.id }}</td>
+                    <td>{{ reservation.idFilm.id }}</td>
+                    <td>{{ reservation.idFilm.idFilm.Nom }}</td>
+                    <td>{{ reservation.NbrPlaces }}</td>
+                    <td>{{ reservation.idFilm.idSalle.Numero }}</td>
+                    <td>{{ reservation.idFilm.heure|format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY à HH:mm:ss")  }}</td>
+                    <td>{{ reservation.idUser.email }}</td>
+                    <td>{{ reservation.idUser.nom }}</td>
+                    <td>{{ reservation.idUser.prenom }}</td>
+                    <td>
+                        {% if reservation.Etat == 0 %}
+                            <a class="btn btn-danger btn-sm" href="{{ path('reservation_cancel', {'idreservation': reservation.id, 'idseance': reservation.idFilm.id, 'nbr': reservation.NbrPlaces}) }}">Annuler</a>
+                        {% else %}
+                            <a class="btn btn-danger btn-sm" href="{{ path('reservation_cancel', {'idreservation': reservation.id, 'idseance': reservation.idFilm.id, 'nbr': reservation.NbrPlaces}) }}">Annuler</a>
+                            <a class="btn btn-success btn-sm" href="{{ path('reservation_valider',{'idreservation': reservation.id}) }}">Valider</a>
+                        {% endif%}
+                    </td>
+                    <td>
+                        {% if reservation.Etat == 0 %}
+                            <span class="badge badge-pill badge-success">Reservé</span>
+                        {% elseif reservation.Etat == 1 %}
+                            <span class="badge badge-pill badge-warning">En cours de validation</span>
+                        {% else %}
+                            <span class="badge badge-pill badge-danger">Annulé</span>
+                        {% endif %}</td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

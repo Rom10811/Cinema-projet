@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Seance{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://bootswatch.com/4/sketchy/bootstrap.css">
+{% endblock %}
+{% block body %}
+<div class="col-md-8" style="margin: auto">
+    <h1>Ajouter une seance</h1>
+    {{ include('seance/_form.html.twig') }}
+    <br>
+    <a class="btn btn-warning" href="{{ path('seance_index') }}">Retourner a la liste des séances</a>
+</div>
+{% endblock %}
+{% block javascripts %}
+{% endblock %}

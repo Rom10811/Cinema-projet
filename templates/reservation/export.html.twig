@@ -1,0 +1,29 @@
+{% block body %}
+    <div style="position: fixed">
+        <h1 style="text-align: center">Reservation</h1>
+    </div>
+    {% for reservation in reservations %}
+{#        <img src="{{ asset('/images/ticket.png') }}">#}
+{#        <img style="width: 400px; height: 400px" src="{{ reservation.idFilm.idFilm.Image }}">#}
+        <img style="width: 90%; position: fixed; margin-left: 5%; margin-right: 5%;" src="{{ absolute_url(asset('images/ticket.png')) }}">
+        <div style="width: 88%;height: 40%;margin-left: 15%; margin-right: 5%; margin-top: 15%; ">
+            <div id="film" style="width: 50%;">
+                <p style="font-family: 'Roboto', monospace;"> Date de sortie du film : {{ reservation.idFilm.idFilm.DateSortie|date("Y-m")  }}</p>
+                <p style="font-family: 'Roboto', monospace;"> Nom du film : {{ reservation.idFilm.idFilm.Nom }}</p>
+            </div>
+            <div id="code" style="width: auto;margin-left: 90px;margin-top: 4%; float:right; text-align: center">
+                <img style="width: 300px; transform: rotate(90deg)" src="{{ absolute_url(asset('images/code.png')) }}">
+            </div>
+            <div id="reserv" style="width:50%;float: left">
+                {% if reservation.NbrPlaces == 1 %}
+                    <p style="font-family: 'Roboto', monospace;">{{ reservation.NbrPlaces }} place</p>
+                {% else %}
+                    <p style="font-family: 'Roboto', monospace;"> {{ reservation.NbrPlaces }} places</p>
+                {% endif %}
+                    <p style="font-family: 'Roboto', monospace;"> Séance:{{ reservation.idFilm.heure|format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY à HH:mm")}}</p>
+                    <p style="font-family: 'Roboto', monospace;"> {{ reservation.idUser.Nom }} {{ reservation.idUser.Prenom }}</p>
+            </div>
+        </div>
+
+    {% endfor %}
+{% endblock %}

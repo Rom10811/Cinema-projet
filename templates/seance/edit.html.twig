@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Seance{% endblock %}
+
+{% block body %}
+    <h1>Edit Seance</h1>
+
+    {{ include('seance/_form.html.twig', {'button_label': 'Mettre a jour'}) }}
+
+    <a href="{{ path('seance_index') }}">Retour a la liste des séances</a>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page d'accueil!{% endblock %}
+{% block stylesheets %}
+
+{% endblock %}
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #ffffff; padding: 2px 6px; }
+</style>
+<body id="body">
+<div class="container-fluid">
+   <div class="row">
+      <div  class="col-md-12">
+         <br>
+         <h1 style="text-align: center">Bienvenue sur la page d'accueil du site du cinema</h1>
+         <div class="row">
+         {% set id = 0 %}
+         {% for film in films %}
+            {% if film.datemindiffusion|date('U') <= "now"|date('U') and film.datemaxdiffusion|date('U') >= "now"|date('U') %}
+            {% set id = film.id %}
+            <div class="Actuellement">
+            <div class="card" id="filmbox">
+               <div style="max-height: 25px; max-width: 390px" class="card-title">
+                  <h5 class="card-title">{{ film.Nom }}</h5>
+               </div>
+               <a href="{{ path('film_seance',{'id': film.id}) }}" style="max-height: 300px; min-width:300px; margin: auto">
+                  <img style="max-height: inherit; max-width: inherit" src="{{ asset('/images/' ~ film.images.nom) }}">
+               </a>
+               <br>
+               <div>
+                  {% if avis[id][0].1 == 0  %}
+                  <p>Pas encore d'avis</p>
+                  {% else %}
+                     <p> {{avis[id][0].1|round(1, 'floor')}}⭐</p>
+                  {% endif%}
+                  <div>
+                     {% for tags in film.tags.snapshot %}
+                        <a id="tags" class="badge badge-pill badge-success" href="{{ path('film_type',{'tags': tags.id}) }}">{{ tags.nom }}</a>
+                     {% endfor %}
+                  </div>
+                  <br>
+                  <a href="{{ path('film_description',{'nom': film.Nom, 'id': film.id}) }}" class="btn btn-warning" style="max-width:50%">Description</a>
+               </div>
+            </div>
+            </div>
+            {% endif %}
+         {% endfor %}
+         </div>
+         <br>
+         {% if id < films|length %}
+         <h1 style="text-align: center">Film à venir</h1>
+         <div class="row">
+            {% for film in films %}
+            {% if film.datemindiffusion|date('U') > "now"|date('U') and film.datemaxdiffusion|date('U') > "now"|date('U')%}
+               <div class="Venir">
+               <div class="card" id="filmbox">
+                  <div style="max-height: 25px; max-width: 390px" class="card-title">
+                     <h5 class="card-title">{{ film.Nom }}</h5>
+                  </div>
+                  <a style="max-height: 300px; min-width:300px; margin: auto">
+                     <img style="max-height: inherit; max-width: inherit" src="{{ asset('/images/' ~ film.images.nom) }}">
+                  </a>
+                  <br>
+                  <div>
+                     <p>A venir</p>
+                     <a href="{{ path('film_description',{'nom': film.Nom, 'id': film.id}) }}" class="btn btn-warning" style="max-width:50%">Description</a>
+                  </div>
+               </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+         {% endif %}
+         </div>
+   </div>
+   </div>
+</div>
+</body>
+
+{% endblock %}

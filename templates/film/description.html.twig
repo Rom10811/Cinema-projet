@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Description{% endblock %}
+
+{% block body %}
+    {% for description in descriptions %}
+        <div style="text-align: center">
+            <h1>{{ description.Nom }}</h1>
+            <p>Note moyenne: {{ note[0].1|round(1, 'floor') }} ⭐</p>
+            <p>{{ description.Description }}</p>
+            <p>{{ description.DateSortie|date("m/d/Y", "Europe/Paris") }}</p>
+        </div>
+        <div style="text-align: center;">
+            <div>
+                <img  src="{{ asset('/images/' ~ description.images.nom)}}">
+            </div>
+            <div>
+                <video width="800" height="600" autoplay controls  preload="auto" id="video">
+                    <source src="{{ asset('/videos/' ~ description.videos.nom) }}" type="video/mp4">
+                </video>
+            </div>
+        </div>
+        <div style="margin-top:60px;text-align: center;">
+            {% for a in avis %}
+                {% if a.visible ==0 %}
+                    {% if is_granted('ROLE_MODERATEUR') %}
+                        <div style="width: 800px; margin: auto" class="card">
+                            <div class="card-title">
+                                Avis posté par
+                                {{ a.iduser.pseudo }} le
+                                {{ a.datecreation|format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY à HH:mm:ss") }}
+                            </div>
+                            <div class="card-body">
+                                <p>{{ a.note }}⭐</p>
+                                <p>{{ a.Avis }}</p>
+                                <a href="{{ path('avis_confirm', {'id': a.id}) }}" class="btn btn-success">Valider l'avis</a>
+                                <a href="{{ path('avis_remove', {'id': a.id}) }}" class="btn btn-danger">Rejeter l'avis</a>
+                            </div>
+                        </div>
+                        <br>
+                    {% endif %}
+                {% elseif a.visible == 1%}
+                    <div style="width: 800px; margin: auto" class="card">
+                        <div class="card-title">
+                            Avis posté par
+                            {{ a.iduser.pseudo }} le
+                            {{ a.datecreation|format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY à HH:mm:ss") }}
+                        </div>
+                        <div class="card-body">
+                            <p>{{ a.note }}⭐</p>
+                            <p>{{ a.Avis }}</p>
+                        </div>
+                    </div>
+                    <br>
+                {% endif %}
+            {% endfor%}
+            <div id="ajout" class="ajout_avis">
+                <form action="{{ path('avis_new', {'idFilm': description.id }) }}" method="post">
+                    {{ render(controller('App\\Controller\\AvisController::new', {'idFilm': description.id})) }}
+                </form>
+                <button onclick="fermer()" type="button" class="btn btn-danger" id="Fermer">Fermer</button>
+            </div>
+            <div class="pagination">
+                {{ knp_pagination_render(avis) }}
+            </div>
+            {% if description.datemindiffusion|date('U') < "now"|date('U') and description.datemaxdiffusion|date('U') > "now"|date('U')%}
+                {% if is_granted('ROLE_MEMBRE') or is_granted('ROLE_MODERATEUR')%}
+                    <a onclick="myFunction()" class="btn btn-primary">Laisser un avis sur {{ description.Nom }}</a>
+                {% endif %}
+            {% endif %}
+            <br>
+            <br>
+            <br>
+        </div>
+    {% endfor %}
+    <script>
+        function myFunction() {
+            document.getElementById("ajout").classList.add('is-visible');
+        }
+    </script>
+    <script>
+        function fermer(){
+            document.getElementById("ajout").classList.remove('is-visible')
+        }
+    </script>
+    <script>
+        var audio = document.getElementById("video");
+        audio.volume = 0.1;
+    </script>
+{% endblock %}
+

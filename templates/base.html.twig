@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.css">
+    <link id="pagestyle" rel="stylesheet" type="text/css" href="{{ asset('style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+</head>
+<body>
+<div>
+    <nav id="navbar" class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <a class="navbar-brand" href="{{ path('accueil') }}">Accueil</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                {% if is_granted('ROLE_MODERATEUR') %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Films</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" href="{{ path('film_new') }}">Ajouter un film</a>
+                        <a class="dropdown-item" href="{{ path('film_index') }}">Voir les films</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Salles</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown02">
+                        <a class="dropdown-item" href="{{ path('salle_new') }}">Ajouter une salle</a>
+                        <a class="dropdown-item" href="{{ path('salle_index') }}">Consulter les salle</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Seances</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown03">
+                        <a class="dropdown-item" href="{{ path('seance_new') }}">Ajouter une seance</a>
+                        <a class="dropdown-item" href="{{ path('seance_index') }}">Consulter les seances</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Réservations</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown04">
+                        <a class="dropdown-item" href="{{ path('reservation_index') }}">Voir les réservations validées</a>
+                        <a class="dropdown-item" href="{{ path('reservation_actions') }}">Valider/Annuler des réservations</a>
+                    </div>
+                </li>
+                {% endif %}
+                {% if is_granted('ROLE_MEMBRE') %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mes seances</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown05">
+                            <a class="dropdown-item" href="{{ path('reservation_consult') }}">Mes réservations</a>
+                        </div>
+                    </li>
+                {% endif %}
+            </ul>
+            <div style="margin-right: 10px" class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="customSwitch1" checked="">
+                <label class="custom-control-label" for="customSwitch1">🌗</label>
+            </div>
+            <div class="form-inline my-2 my-md-0">
+                <div>
+                    {% if not app.user %}
+                        <a class="btn btn-warning" href="{{ path('app_register') }}" style="margin-right: 5px">Inscription</a>
+                        <a class="btn btn-success" href="{{ path('app_login') }}">Connexion</a>
+                    {% endif %}
+                    {% if app.user %}
+                        <a class="btn btn-danger" href="{{ path('app_logout') }}">Deconnexion</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+</body>
+{% block body %}
+{% endblock %}
+{% block javascripts %}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script >
+        $(document).ready(function() {
+            $('.select-tags').select2({
+                tags: true,
+            });
+        });
+    </script>
+    <script>
+        function save(){
+            var checkbox = document.getElementById('customSwitch1');
+            localStorage.setItem('customSwitch1', checkbox.checked);
+        }
+    </script>
+    <script>
+        function load(){
+            var checked = JSON.parse(localStorage.getItem('customSwitch1'));
+            document.getElementById("customSwitch1").checked=checked;
+            console.log(checked);
+            if(checked ==true )
+            {
+                document.getElementById('pagestyle').setAttribute('href', "{{ asset('style.css') }}");
+            }
+            else
+            {
+                document.getElementById('pagestyle').setAttribute('href', "{{ asset('style2.css') }}");
+            }
+        }
+    </script>
+    <script>
+        var test;
+        ($('#customSwitch1').change(function ()
+        {
+            if($('#customSwitch1').is(":checked"))
+            {
+                test = 1;
+                document.getElementById('pagestyle').setAttribute('href', "{{ asset('style.css') }}");
+                save();
+                console.log(document.getElementById("pagestyle"))
+                console.log(test)
+
+            }
+            else
+            {
+                test = 0;
+                document.getElementById('pagestyle').setAttribute('href', "{{ asset('style2.css') }}");
+                save();
+                console.log(document.getElementById("pagestyle"))
+                console.log(test)
+            }
+        }));
+        load();
+    </script>
+{% endblock %}
+</html>

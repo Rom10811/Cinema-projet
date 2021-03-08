@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Film{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://bootswatch.com/4/superhero/bootstrap.css">
+{% endblock %}
+{% block body %}
+<div class="col-md-8" style="margin: auto">
+    <h1>Ajouter un Film</h1>
+    {{ include('film/_form.html.twig') }}
+</div>
+{% endblock %}
