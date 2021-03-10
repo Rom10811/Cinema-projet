@@ -69,9 +69,33 @@ class User implements UserInterface
      */
     private $avis;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $activation;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $dateExpiration;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $token;
+
 
     public function __construct(){
         $this->roles = ['ROLE_MEMBRE'];
+        $this->createdAt= new \DateTime();
+        $this->dateExpiration = new \DateTime();
+        $this->dateExpiration->modify("+1day");
+        $this->activation = false;
         $this->avis = new ArrayCollection();
     }
     public function getId(): ?int
@@ -238,6 +262,54 @@ class User implements UserInterface
                 $avi->setIdUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getActivation(): ?bool
+    {
+        return $this->activation;
+    }
+
+    public function setActivation(bool $activation): self
+    {
+        $this->activation = $activation;
+
+        return $this;
+    }
+
+    public function getDateExpiration(): ?\DateTimeInterface
+    {
+        return $this->dateExpiration;
+    }
+
+    public function setDateExpiration(\DateTimeInterface $dateExpiration): self
+    {
+        $this->dateExpiration = $dateExpiration;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(?string $token): self
+    {
+        $this->token = $token;
 
         return $this;
     }
