@@ -19,7 +19,7 @@ class Mailer{
 
     public function sendEmail($email, $token)
     {
-        $email = (new TemplatedEmail())
+        $mail = (new TemplatedEmail())
             ->from('contact@romain-duciel.ovh')
             ->to(new Address($email))
             ->subject('Merci pour votre inscription')
@@ -29,6 +29,19 @@ class Mailer{
             ])
         ;
 
-        $this->mailer->send($email);
+        $this->mailer->send($mail);
+    }
+
+    public function resetPassword($email, $token)
+    {
+        $mail1 = (new TemplatedEmail())
+            ->from('contact@romain-duciel.ovh')
+            ->to(new Address($email))
+            ->subject('Reinitialisation de votre mot de passe')
+            ->htmlTemplate('email/password.html.twig')
+            ->context([
+                'token' => $token,
+            ]);
+        $this->mailer->send($mail1);
     }
 }
