@@ -3,9 +3,11 @@
 {% block title %}Seance{% endblock %}
 
 {% block body %}
-    <h1>Edit Seance</h1>
+    <div class="col-md-8" style="margin: auto">
+        <h1>Modifier Seance</h1>
 
-    {{ include('seance/_form.html.twig', {'button_label': 'Mettre a jour'}) }}
+        {{ include('seance/_form.html.twig', {'button_label': 'Mettre a jour'}) }}
 
-    <a href="{{ path('seance_index') }}">Retour a la liste des séances</a>
+        <a href="{{ path('seance_index') }}">Retour a la liste des séances</a>
+    </div>
 {% endblock %}
