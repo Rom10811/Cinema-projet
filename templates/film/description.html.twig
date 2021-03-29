@@ -17,6 +17,7 @@
             <div>
                 <video width="800" height="600" autoplay controls  preload="auto" id="video">
                     <source src="{{ asset('/videos/' ~ description.videos.nom) }}" type="video/mp4">
+
                 </video>
             </div>
         </div>
@@ -24,7 +25,7 @@
             {% for a in avis %}
                 {% if a.visible ==0 %}
                     {% if is_granted('ROLE_MODERATEUR') %}
-                        <div style="width: 800px; margin: auto" class="card">
+                        <div  id="avis" style="width: 800px; margin: auto" class="card">
                             <div class="card-title">
                                 Avis posté par
                                 {{ a.iduser.pseudo }} le
@@ -54,7 +55,7 @@
                     <br>
                 {% endif %}
             {% endfor%}
-            <div id="ajout" class="ajout_avis">
+            <div id="ajout" class="ajout_avis col-md-6" style="margin: auto">
                 <form action="{{ path('avis_new', {'idFilm': description.id }) }}" method="post">
                     {{ render(controller('App\\Controller\\AvisController::new', {'idFilm': description.id})) }}
                 </form>

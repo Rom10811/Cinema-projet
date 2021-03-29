@@ -21,6 +21,21 @@ use Symfony\Component\Security\Core\Security;
 class AvisController extends AbstractController
 {
     /**
+     * @Route("/consulter", name="avis_consult")
+     * @param AvisRepository $avisRepository
+     */
+    public function consult(AvisRepository $avisRepository)
+    {
+        $idUser = $this->getUser()->getId();
+        $avis = $avisRepository->findBy(
+            ['idUser' => $idUser]
+        );
+        return $this->render('avis/consult.html.twig', [
+            'avis' => $avis
+        ]);
+    }
+
+    /**
      * @Route("/{id}/cancel", name="avis_remove")
      * @param $id
      * @param AvisRepository $avisRepository
@@ -88,6 +103,7 @@ class AvisController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($avi);
             $entityManager->flush();
+            $this->addFlash('message', 'Avis posté en attente de modération');
             return $this->redirectToRoute('accueil');
         }
 

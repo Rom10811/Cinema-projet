@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes Avis{% endblock %}
+
+{% block body %}
+    <body>
+    <div class="col-md-8" style="margin: auto">
+        {% for avis_poster in avis %}
+            <div id="avis" class="card border-success mb-3">
+                <div class="card-header">
+                    Avis posté le {{ avis_poster.datecreation|format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY à HH:mm:ss") }}
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">
+                        {{ avis_poster.idFilm }}
+                    </h4>
+                    <p class="card-text">
+                        {{ avis_poster.Avis }}
+                    </p>
+                    <p>
+                        {{ avis_poster.Note }} ⭐<br>
+                    </p>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+    </body>
+{% endblock %}

@@ -26,7 +26,6 @@
         <tbody>
         {% for reservation in reservations %}
             {% if "now"|date('U') > reservation.idFilm.heure|date('U') or reservation.Etat == 2%}
-
         {% else %}
             <tr>
                 <td>{{ reservation.id }}</td>

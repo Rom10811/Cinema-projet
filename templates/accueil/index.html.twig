@@ -49,7 +49,7 @@
                   {% endif%}
                   <div>
                      {% for tags in film.tags.snapshot %}
-                        <a id="tags" class="badge badge-pill badge-info" href="{{ path('film_type',{'tags': tags.id}) }}">{{ tags.nom }}</a>
+                        <a id="tags" class="badge badge-pill badge-success" href="{{ path('film_type',{'tags': tags.id}) }}">{{ tags.nom }}</a>
                      {% endfor %}
                   </div>
                   <br>
@@ -61,7 +61,6 @@
          {% endfor %}
          </div>
          <br>
-         {% if id < films|length %}
          <h1 style="text-align: center">Film à venir</h1>
          <div class="row">
             {% for film in films %}
@@ -79,7 +78,7 @@
                      <p>A venir</p>
                      <div>
                         {% for tags in film.tags.snapshot %}
-                           <a id="tags" class="badge badge-pill badge-info" href="{{ path('film_type',{'tags': tags.id}) }}">{{ tags.nom }}</a>
+                           <a id="tags" class="badge badge-pill badge-success" href="{{ path('film_type',{'tags': tags.id}) }}">{{ tags.nom }}</a>
                         {% endfor %}
                      </div>
                      <br>
@@ -89,7 +88,6 @@
             </div>
             {% endif %}
             {% endfor %}
-         {% endif %}
          </div>
    </div>
    </div>

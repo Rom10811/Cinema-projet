@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification de votre profil{% endblock %}
+
+{% block body %}
+    <div class="col-md-8" style="margin: auto">
+        <div>
+            {{ form_start(form) }}
+            <div class="form-group">
+                {{ form_label(form.nom) }}
+                {{ form_widget(form.nom) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.prenom) }}
+                {{ form_widget(form.prenom) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.age) }}
+                {{ form_widget(form.age) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.telephone) }}
+                {{ form_widget(form.telephone) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.pseudo) }}
+                {{ form_widget(form.pseudo) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.Valider) }}
+                {{ form_widget(form.Valider) }}
+            </div>
+            <div class="form-group">
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

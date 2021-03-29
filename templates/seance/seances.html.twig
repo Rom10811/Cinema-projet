@@ -11,45 +11,48 @@
       <div class="container-fluid">
         <div class="row" >
           <div  class="col-md-12" style="margin-top: 100px">
-    {% for film in films %}
-        {% if "now"|date('U') <= film.heure|date('U')  %}
-            <div class="card" style="display: inline-flex; min-width: 400px; min-height: 400px; max-width: 400px;  margin-left: 60px; margin-top: 40px; padding:20px; text-align: center;">
-                <div class="card-block" style="margin:auto">
-                    <div>
-                        <a style="text-decoration: none; color: black; font-size: xx-large" class="card-title">
-                            <h5>{{ film.idFilm.Nom }}</h5>
-                        </a>
+            {% for film in films %}
+                {% if "now"|date('U') <= film.heure|date('U')  %}
+                    <div class="card" style="display: inline-flex; min-width: 400px; min-height: 400px; max-width: 400px;  margin-left: 60px; margin-top: 40px; padding:20px; text-align: center;">
+                        <div class="card-block" style="margin:auto">
+                            <div>
+                                <a style="text-decoration: none; color: black; font-size: xx-large" class="card-title">
+                                    <h5>{{ film.idFilm.Nom }}</h5>
+                                </a>
+                            </div>
+                            <br>
+                            <p> {{ film.heure|format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY à HH:mm")}}</p>
+                            <p>Places restantes: {{ film.PlacesRestantes }}</p>
+                            <form id="{{ film.id }}" name="reservation" method="post">
+                                <div>
+                                    <label for="reservation_NbrPlaces{{ film.id }}" class="required"></label>
+                                    <input class="form-control" type="number" max="{{ film.PlacesRestantes}}" min="0" id="reservation_NbrPlaces{{ film.id }}" name="reservation[NbrPlaces]" required="required" dir="ltr">
+                                </div>
+                                <div style="display: none">
+                                    <label for="reservation_idFilm{{ film.id }}" class="required">Seance </label>
+                                    <select  id="reservation_idFilm{{ film.id }}" name="reservation[idFilm]">
+                                        <option value="{{ film.id }}">{{ film.id }}</option>
+                                    </select>
+                                </div>
+                                <br>
+                                {% if film.PlacesRestantes == 0 %}
+                                    <p  class="badge badge-pill badge-danger"> Plus de places disponibles</p>
+                                {% else %}
+                                    <button type="submit" class="btn btn-primary">Reserver</button>
+                                {% endif%}
+        {#                        <input type="hidden" id="reservation__token" name="reservation[_token]" value="CQVVckyCV1TD4JmW6Sg8Qnkct4Hep-0CM7keq2zUDt4">#}
+                            </form>
+                        </div>
                     </div>
-                    <br>
-                    <p> {{ film.heure|format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY à HH:mm")}}</p>
-                    <p>Places restantes: {{ film.PlacesRestantes }}</p>
-                    <form id="{{ film.id }}" name="reservation" method="post">
-                        <div>
-                            <label for="reservation_NbrPlaces{{ film.id }}" class="required"></label>
-                            <input class="form-control" type="number" max="{{ film.PlacesRestantes}}" min="0" id="reservation_NbrPlaces{{ film.id }}" name="reservation[NbrPlaces]" required="required" dir="ltr">
-                        </div>
-                        <div style="display: none">
-                            <label for="reservation_idFilm{{ film.id }}" class="required">Seance </label>
-                            <select  id="reservation_idFilm{{ film.id }}" name="reservation[idFilm]">
-                                <option value="{{ film.id }}">{{ film.id }}</option>
-                            </select>
-                        </div>
-                        <br>
-                        {% if film.PlacesRestantes == 0 %}
-                            <p  class="badge badge-pill badge-danger"> Plus de places disponibles</p>
-                        {% else %}
-                            <button type="submit" class="btn btn-primary">Reserver</button>
-                        {% endif%}
-{#                        <input type="hidden" id="reservation__token" name="reservation[_token]" value="CQVVckyCV1TD4JmW6Sg8Qnkct4Hep-0CM7keq2zUDt4">#}
-                    </form>
-                </div>
-            </div>
 
-            {% else %}
+                    {% else %}
 
-            {% endif %}
+                    {% endif %}
 
-    {% endfor %}
+            {% endfor %}
+              {% if films >= 0 %}
+                  <p style="text-align: center; font-size: 56px">Pas encore de séances</p>
+              {% endif %}
           </div>
         </div>
       </div>

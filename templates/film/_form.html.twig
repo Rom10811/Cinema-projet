@@ -1,13 +1,6 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
-    {% if app.request.attributes.get('_route') == 'film_edit' %}
-        <h2>Images</h2>
-        {% for image in film.images %}
-            <div>
-                <img src="{{ asset('/images/'~ image.nom) }}" alt="Image" width="150">
-                <a href="{{ path('delete_image', {'id': image.id}) }}" data-delete="" data-token="{{ csrf_token('delete' ~ image.id) }}">Supprimer </a>
-            </div>
-        {% endfor %}
-    {% endif %}
-    <button class="btn">{{ button_label|default('Ajouter') }}</button>
+<br>
+    <button class="btn btn-success">{{ button_label|default('Ajouter') }}</button>
+
 {{ form_end(form) }}

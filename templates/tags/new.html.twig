@@ -3,9 +3,11 @@
 {% block title %}New Tags{% endblock %}
 
 {% block body %}
-    <h1>Create new Tags</h1>
+    <div class="col-md-8" style="margin: auto">
+        <h1>Ajouter un tag</h1>
 
-    {{ include('tags/_form.html.twig') }}
-
-    <a href="{{ path('tags_index') }}">back to list</a>
+        {{ include('tags/_form.html.twig') }}
+        <br>
+        <a class="btn btn-warning" href="{{ path('tags_index') }}">Retourner a la liste des tags</a>
+    </div>
 {% endblock %}

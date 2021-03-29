@@ -1,8 +1,6 @@
 body{
     background-color: white !important;
 }
-.card
-{background-color: #555555}
 h5
 {
     font-family: Montserrat;
@@ -28,7 +26,9 @@ h1{
     margin-top: 40px;
     padding:20px;
     text-align: center;
-    animation: tournade 1s;
+    animation: tourner 1s;
+    background-color: #555555;
+
 }
 .form-control
 {
@@ -43,17 +43,16 @@ h1{
 {
     animation: accueil 1s;
 }
-@keyframes tournade {
+@keyframes tourner {
     0%{
         opacity: 0%;
-        transform: rotate(250deg);
-
+        /*transform: rotate(350deg);*/
     }
     75%{
         opacity: 20%;
     }
     100% {
-        transform: rotate(360deg);
+        /*transform: rotate(360deg);*/
         opacity: 100%;
     }
 }@keyframes accueil {
@@ -97,4 +96,12 @@ h1{
 
 #tags{
     text-decoration:none;
+}
+#settings{
+    text-decoration: none;
+}
+#avis
+{
+    margin-top: 10px;
+    background-color: #f1f0f0;
 }

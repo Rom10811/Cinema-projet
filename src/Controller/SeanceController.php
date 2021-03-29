@@ -124,7 +124,7 @@ class SeanceController extends AbstractController
             $entityManager->persist($reservation);
             $entityManager->flush();
             $seanceRepository->reservation($idseance, $nbr);
-            $this->addFlash('message', 'Séances reservée');
+            $this->addFlash('message', 'Séance en cours de réservation un administrateur va gerer votre demande');
             return $this->redirectToRoute('reservation_consult');
         }
 

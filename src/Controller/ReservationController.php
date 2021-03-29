@@ -68,7 +68,7 @@ class ReservationController extends AbstractController
     public function valider(ReservationRepository  $reservationRepository, $idreservation)
     {
          $reservationRepository->valider($idreservation);
-        return $this->redirectToRoute('reservation_index');
+        return $this->redirectToRoute('reservation_choix');
     }
 
     /**

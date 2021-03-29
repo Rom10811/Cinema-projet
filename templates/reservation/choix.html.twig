@@ -3,13 +3,21 @@
 {% block title %}Mes reservations{% endblock %}
 
 {% block body %}
-    {%  for reservation in reservations %}
-        <div>
-            {{ reservation.id }}
-            {{ reservation.heure|format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY à HH:mm:ss")   }}
-            {{ reservation.idFilm.Nom }}
-            {{ reservation.idSalle.id }}
-            <a class="btn btn-primary" href="{{ path('reservation_index', {'idSeance': reservation.id}) }}">Choisir cette seance</a>
+
+        <div class="col-md-8" style="margin: auto">
+            <table class="table table-striped table-dark" style="text-align: center">
+                <tr>
+                    <th>Date de la séance</th>
+                    <th>Nom du film</th>
+                    <th>Actions</th>
+                </tr>
+            {%  for reservation in reservations %}
+                <tr>
+                    <th>{{ reservation.heure|format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY à HH:mm:ss")   }}</th>
+                    <th>{{ reservation.idFilm.Nom }}</th>
+                    <th><a class="btn btn-primary" href="{{ path('reservation_index', {'idSeance': reservation.id}) }}">Choisir cette seance</a></th>
+                </tr>
+            {% endfor %}
+            </table>
         </div>
-    {% endfor %}
 {% endblock %}

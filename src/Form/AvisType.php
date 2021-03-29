@@ -16,7 +16,10 @@ class AvisType extends AbstractType
         $builder
             ->add('Avis', TextType::class,
             [
-                'label' => false
+                'label' => false,
+                'attr' => [
+                    'class' => 'form-control'
+                ]
             ])
             ->add('Note',ChoiceType::class,
                 ['choices' =>
@@ -26,7 +29,11 @@ class AvisType extends AbstractType
                         3=>3,
                         4=>4,
                         5=>5
-                    ]
+                    ],
+                    'attr' => [
+                        'class' => 'form-control'
+                    ],
+                    'label' => false
                 ]
             )
         ;

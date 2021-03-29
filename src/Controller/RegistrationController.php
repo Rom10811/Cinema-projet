@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\EditProfilType;
 use App\Service\Mailer;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
@@ -89,5 +90,37 @@ class RegistrationController extends AbstractController
     public function generateToken()
     {
         return rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');
+    }
+
+    /**
+     * @Route("/profil", name="profil")
+     * @return Response
+     */
+    public function index(): Response
+    {
+        return $this->render('profil/profil.html.twig');
+    }
+
+    /**
+     * @Route ("profil/modifier", name="profil_modifier")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     */
+    public function modifierProfil(Request $request)
+    {
+        $user = $this->getUser();
+        $form = $this->createForm(EditProfilType::class, $user);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+            $this->addFlash('message', "Profil mis à jour");
+            return $this->redirectToRoute('profil');
+        }
+        return $this->render('profil/modificationProfil.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }
