@@ -14,6 +14,18 @@
    <div class="row">
       <div  class="col-md-12">
          <br>
+         {% for message in app.flashes('message') %}
+            <div class="alert alert-dismissible alert-success">
+               <button type="button" class="close" data-dismiss="alert">&times;</button>
+               {{ message }}
+            </div>
+         {% endfor %}
+         {% for message in app.flashes('danger') %}
+            <div class="alert alert-dismissible alert-danger">
+               <button type="button" class="close" data-dismiss="alert">&times;</button>
+               {{ message }}
+            </div>
+         {% endfor %}
          <h1 style="text-align: center">Bienvenue sur la page d'accueil du site du cinema</h1>
          <div class="row">
          {% set id = 0 %}

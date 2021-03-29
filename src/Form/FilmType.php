@@ -52,14 +52,16 @@ class FilmType extends AbstractType
                 "attr" =>[
                     "class"=>"form-control"
                 ],
-                'label' => 'Date minimum de diffusion'
+                'label' => 'Date minimum de diffusion',
+                'widget' => 'single_text',
             ])
             ->add('DateMaxDiffusion', DateType::class,
             [
                 "attr" => [
                     "class" => "form-control"
                 ],
-                'label' => 'Date maximale de diffusion'
+                'label' => 'Date maximale de diffusion',
+                'widget' => 'single_text',
             ])
             ->add('Tags', EntityType::class,[
                 'multiple' => true,

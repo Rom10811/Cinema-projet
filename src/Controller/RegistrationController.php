@@ -45,8 +45,8 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
             // do anything else you need here, like send an email
             $this->mailer->sendEmail($user->getEmail(), $user->getToken());
-
-//            return $this->redirectToRoute('accueil');
+            $this->addFlash('message', 'Un mail d\'activation vous sera envoyé et vous disposez d\'une période de 24 heures pour valider votre compte');
+            return $this->redirectToRoute('accueil');
         }
 
         return $this->render('registration/register.html.twig', [
@@ -66,6 +66,7 @@ class RegistrationController extends AbstractController
         $user = $this->userRepository->findOneBy(["token" => $token]);
         if($date > $user->getDateExpiration())
         {
+            $this->addFlash('danger', 'La periode de validité du mail est dépassée !');
             return $this->redirectToRoute('accueil');
         }
         else
@@ -76,6 +77,7 @@ class RegistrationController extends AbstractController
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($user);
                 $em->flush();
+                $this->addFlash('message', 'Votre compte a bien été validé !');
                 return $this->redirectToRoute('accueil');
             }
             else{

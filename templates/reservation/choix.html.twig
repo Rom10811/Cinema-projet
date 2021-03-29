@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes reservations{% endblock %}
+
+{% block body %}
+    {%  for reservation in reservations %}
+        <div>
+            {{ reservation.id }}
+            {{ reservation.heure|format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY à HH:mm:ss")   }}
+            {{ reservation.idFilm.Nom }}
+            {{ reservation.idSalle.id }}
+            <a class="btn btn-primary" href="{{ path('reservation_index', {'idSeance': reservation.id}) }}">Choisir cette seance</a>
+        </div>
+    {% endfor %}
+{% endblock %}

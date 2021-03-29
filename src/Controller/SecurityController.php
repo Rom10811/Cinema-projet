@@ -77,7 +77,7 @@ class SecurityController extends AbstractController
             }
             $this->mailer->resetPassword($user->getEmail(),$user->getResetToken());
             $this->addFlash('message', 'Un email de reinitialisation de mot de passe a été envoyé');
-//            return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('app_login');
         }
         return $this->render('security/resetpass.html.twig',['emailForm'=>$form->createView()]);
     }

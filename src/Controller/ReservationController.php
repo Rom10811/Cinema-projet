@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Film;
 use App\Entity\Reservation;
 use App\Entity\User;
 use App\Form\ReservationType;
 use App\Repository\ReservationRepository;
+use App\Repository\SeanceRepository;
+use phpDocumentor\Reflection\DocBlock\Serializer;
 use PhpParser\Node\Expr\Empty_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -110,13 +113,28 @@ class ReservationController extends AbstractController
     }
 
     /**
-     * @Route("/moderateur/reservation/validées", name="reservation_index", methods={"GET"})
+     * @Route("/moderateur/reservation/choix", name="reservation_choix")
+     * @param SeanceRepository $seanceRepository
+     * @return Response
      */
-    public function valid(ReservationRepository $reservationRepository): Response
+    public function choix(SeanceRepository $seanceRepository):Response
+    {
+        return $this->render('reservation/choix.html.twig',[
+            'reservations' => $seanceRepository->findAll()
+        ]);
+    }
+
+    /**
+     * @Route("/moderateur/reservation/validées/{idSeance}", name="reservation_index", methods={"GET"})
+     */
+    public function valid(ReservationRepository $reservationRepository, $idSeance): Response
     {
         return $this->render('reservation/index.html.twig', [
             'reservations' => $reservationRepository->findBy(
-                ['Etat' => 0]
+                [
+                    'Etat' => 0,
+                    'idFilm' => $idSeance
+                ]
             ),
         ]);
     }

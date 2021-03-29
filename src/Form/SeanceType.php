@@ -18,7 +18,8 @@ class SeanceType extends AbstractType
     {
         $builder
             ->add('heure',DateTimeType::class, array(
-                'input' => 'datetime_immutable'
+                'input' => 'datetime_immutable',
+                'date_widget' => 'single_text'
             ))
             ->add('idFilm', EntityType::class,[
                 'class' => Film::class,
