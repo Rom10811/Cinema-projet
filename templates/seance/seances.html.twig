@@ -13,7 +13,7 @@
           <div  class="col-md-12" style="margin-top: 100px">
             {% for film in films %}
                 {% if "now"|date('U') <= film.heure|date('U')  %}
-                    <div class="card" style="display: inline-flex; min-width: 400px; min-height: 400px; max-width: 400px;  margin-left: 60px; margin-top: 40px; padding:20px; text-align: center;">
+                    <div id="filmbox" class="card" style="display: inline-flex; min-width: 400px; min-height: 400px; max-width: 400px;  margin-left: 60px; margin-top: 40px; padding:20px; text-align: center;">
                         <div class="card-block" style="margin:auto">
                             <div>
                                 <a style="text-decoration: none; color: black; font-size: xx-large" class="card-title">
@@ -50,7 +50,7 @@
                     {% endif %}
 
             {% endfor %}
-              {% if films == 0 %}
+              {% if films|length == 0 %}
                   <p style="text-align: center; font-size: 56px">Pas encore de séances</p>
               {% endif %}
           </div>
