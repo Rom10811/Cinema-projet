@@ -19,9 +19,6 @@
                 <tr>
                     <td>{{ tag.id }}</td>
                     <td>{{ tag.nom }}</td>
-                    <td>
-                        <a class="btn btn-warning" href="{{ path('tags_edit', {'id': tag.id}) }}">Modifier</a>
-                    </td>
                 </tr>
             {% else %}
                 <tr>

@@ -3,11 +3,13 @@
 {% block title %}Salle{% endblock %}
 
 {% block body %}
-    <h1>Edit Salle</h1>
-
-    {{ include('salle/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('salle_index') }}">back to list</a>
-
-    {{ include('salle/_delete_form.html.twig') }}
+    <div class="col-md-8" style="margin: auto">
+        <h1>Modifier une Salle</h1>
+        <br>
+        {{ include('salle/_form.html.twig', {'button_label': 'Mettre a jour'}) }}
+        <br>
+        <a class="btn btn-warning" href="{{ path('salle_index') }}">Retourner a la liste des salles</a>
+        <br>
+        {{ include('salle/_delete_form.html.twig') }}
+    </div>
 {% endblock %}
