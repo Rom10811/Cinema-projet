@@ -43,6 +43,7 @@ class AvisType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Avis::class,
+            'csrf_protection' => false
         ]);
     }
 }
