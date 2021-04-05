@@ -1,5 +1,5 @@
 body{
-    background-color: white !important;
+    background-color: #ffffff !important;
 }
 h5
 {
@@ -26,7 +26,7 @@ h1{
     margin-top: 40px;
     padding:20px;
     text-align: center;
-    animation: tourner 1s;
+    animation: animation 1s;
     background-color: #555555;
 
 }
@@ -43,18 +43,17 @@ h1{
 {
     animation: accueil 1s;
 }
-@keyframes tourner {
+@keyframes animation {
     0%{
         opacity: 0%;
-        /*transform: rotate(350deg);*/
     }
     75%{
-        opacity: 20%;
+        opacity: 70%;
     }
     100% {
-        /*transform: rotate(360deg);*/
         opacity: 100%;
     }
+
 }@keyframes accueil {
      0%{
          top: -111px;
@@ -67,7 +66,6 @@ h1{
          top: 0px;
      }
  }
-
 
 .ajout_avis{
     display: none;

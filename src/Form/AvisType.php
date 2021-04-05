@@ -42,8 +42,7 @@ class AvisType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Avis::class,
-            'csrf_protection' => false
+            'data_class' => Avis::class
         ]);
     }
 }
