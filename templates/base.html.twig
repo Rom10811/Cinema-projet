@@ -118,7 +118,6 @@
         function load(){
             var checked = JSON.parse(localStorage.getItem('customSwitch1'));
             document.getElementById("customSwitch1").checked=checked;
-            console.log(checked);
             if(checked ==true )
             {
                 document.getElementById('pagestyle').setAttribute('href', "{{ asset('style.css') }}");
@@ -138,8 +137,6 @@
                 test = 1;
                 document.getElementById('pagestyle').setAttribute('href', "{{ asset('style.css') }}");
                 save();
-                console.log(document.getElementById("pagestyle"))
-                console.log(test)
 
             }
             else

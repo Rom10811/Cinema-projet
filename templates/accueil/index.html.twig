@@ -42,10 +42,11 @@
                </div>
                <br>
                <div>
-                  {% if avis[id][0].1 == 0  %}
+                  {{ dump(avis) }}
+                  {% if avis[film.id][0].1 == 0  %}
                   <p>Pas encore d'avis</p>
                   {% else %}
-                     <p> {{avis[id][0].1|round(1, 'floor')}}⭐</p>
+                     <p> {{avis[film.id][0].1|round(1, 'floor')}}⭐</p>
                   {% endif%}
                   <div>
                      {% for tags in film.tags.snapshot %}
