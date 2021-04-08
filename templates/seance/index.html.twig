@@ -17,6 +17,7 @@
             </thead>
             <tbody>
             {% for seance in seances %}
+                {% if "now"|date('U') <= seance.heure|date('U')  %}
                 <tr>
                     <td>{{ seance.id }}</td>
                     <td>{{ seance.heure ? seance.heure|date('Y-m-d H:i:s') : '' }}</td>
@@ -26,11 +27,7 @@
                         <a class="btn btn-warning" href="{{ path('seance_edit', {'id': seance.id}) }}">Modifier</a>
                     </td>
                 </tr>
-            {% else %}
-                <tr>
-                    <td colspan="3">no records found</td>
-                </tr>
-            {% endfor %}
+                {% endif %}
             </tbody>
         </table>
 
