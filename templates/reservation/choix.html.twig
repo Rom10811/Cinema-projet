@@ -12,11 +12,13 @@
                     <th>Actions</th>
                 </tr>
             {%  for reservation in reservations %}
+                {% if "now"|date('U') <= reservation.heure|date('U')  %}
                 <tr>
                     <th>{{ reservation.heure|format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY à HH:mm:ss")   }}</th>
                     <th>{{ reservation.idFilm.Nom }}</th>
-                    <th><a class="btn btn-primary" href="{{ path('reservation_index', {'idSeance': reservation.id}) }}">Choisir cette seance</a></th>
+                    <th><a class="btn btn-outline-info" href="{{ path('reservation_index', {'idSeance': reservation.id}) }}">Choisir cette seance</a></th>
                 </tr>
+                {% endif %}
             {% endfor %}
             </table>
         </div>

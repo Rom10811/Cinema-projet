@@ -7,7 +7,7 @@
         <div style="text-align: center">
             <h1>{{ description.Nom }}</h1>
             <p>Note moyenne: {{ note[0].1|round(1, 'floor') }} ⭐</p>
-            <p>{{ description.Description }}</p>
+            <div style="width: 1200px; margin: auto" class="card">{{ description.Description }}</div>
             <p>{{ description.DateSortie|date("m/d/Y", "Europe/Paris") }}</p>
         </div>
         <div style="text-align: center;">

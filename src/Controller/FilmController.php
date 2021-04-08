@@ -100,28 +100,12 @@ class FilmController extends AbstractController
     public function edit(Request $request, Film $film): Response
     {
         $form = $this->createForm(FilmType::class, $film);
+        $form->remove('Image');
+        $form->remove('Video');
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $image = $form->get('Image')->getData();
-            $fichier = md5(uniqid()).'.'.$image->guessExtension();
-            $image->move(
-                $this->getParameter('images_directory'),
-                $fichier
-            );
-            $img = new Images();
-            $img->setNom($fichier);
-            $film->setImages($img);
-
-            $video = $form->get('Video')->getData();
-            $fichvideo = md5(uniqid()).'.'.$video->guessExtension();
-            $video->move(
-                $this->getParameter('video_directory'),
-                $fichvideo
-            );
-            $vid = new Videos();
-            $vid->setNom($fichvideo);
-            $film->setVideos($vid);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('film_index');

@@ -11,7 +11,6 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @method Seance|null find($id, $lockMode = null, $lockVersion = null)
  * @method Seance|null findOneBy(array $criteria, array $orderBy = null)
- * @method Seance[]    findAll()
  * @method Seance[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class SeanceRepository extends ServiceEntityRepository
@@ -21,6 +20,9 @@ class SeanceRepository extends ServiceEntityRepository
         parent::__construct($registry, Seance::class);
     }
 
+    public function findAll(){
+        return $this->findBy(array(), array('heure'=>'ASC'));
+    }
     public function reservation($idseance, $nbr)
     {
         $query = $this->getEntityManager()->createQueryBuilder('s');

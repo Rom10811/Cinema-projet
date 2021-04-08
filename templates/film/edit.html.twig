@@ -1,14 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Film{% endblock %}
+{% block title %}Modifier Film{% endblock %}
 
 {% block body %}
     <div class="col-md-8" style="margin: auto">
         <h1>Modifier Film</h1>
 
         {{ include('film/_form.html.twig', {'button_label': 'Mettre a jour'}) }}
-        <br>
+
         <a class="btn btn-warning" href="{{ path('film_index') }}">Retourner a la liste des films</a>
     </div>
-
 {% endblock %}
